@@ -1,11 +1,10 @@
---功率预测_光伏_跳变
-insert into import_list_tb
+--功率预测_风电_中断
+insert into import_list_zd
 (
 	module_source 
 	,energy_type
 	,standard_name
-	,tb_windows
-	,sliding_step
+	,zd_duration
 	,begin_time
 	,end_time
 	,measure_name
@@ -22,7 +21,7 @@ with cd_data as (
 	from 
 		measure_data 
 	where 
-		substring(cd_code,5,1)='G'
+		(substring(cd_code,5,1)='F' OR substring(cd_code,5,3)='Y01')
 	and substring(cd_code,13,3) in ('001','002','004')
 ),standard_data as (
 	select 
@@ -31,7 +30,7 @@ with cd_data as (
 	通用.standard_list
 	where 
 		module_source = '功率预测'
-	and energy_type = '光伏'
+	and energy_type = '风电'
 ),final_data as (
 	select 
 		t1.cd_name
@@ -62,9 +61,8 @@ select
 distinct
 module_source
 ,energy_type
-,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_跳变')as standard_name
-,tb_windows::float as tb_windows
-,tb_windows::float/2 as sliding_step
+,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_中断')as standard_name
+,zd_duration::float as  zd_duration
 ,'0:00' as begin_time
 ,'23:59' as end_time
 ,measure_name
@@ -72,5 +70,5 @@ module_source
 from  
 	final_data
 where 
-	tb_windows !=''
+	zd_duration != ''
 order by measure_name;

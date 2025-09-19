@@ -1,11 +1,10 @@
---功率预测_光伏_死值
-insert into import_list_sz
+--功率预测_风电_跳变
+insert into import_list_tb
 (
 	module_source 
 	,energy_type
 	,standard_name
-	,sz_threshold
-	,sz_windows
+	,tb_windows
 	,sliding_step
 	,begin_time
 	,end_time
@@ -23,7 +22,7 @@ with cd_data as (
 	from 
 		measure_data 
 	where 
-		substring(cd_code,5,1)='G'
+		(substring(cd_code,5,1)='F' OR substring(cd_code,5,3)='Y01')
 	and substring(cd_code,13,3) in ('001','002','004')
 ),standard_data as (
 	select 
@@ -32,7 +31,7 @@ with cd_data as (
 	通用.standard_list
 	where 
 		module_source = '功率预测'
-	and energy_type = '光伏'
+	and energy_type = '风电'
 ),final_data as (
 	select 
 		t1.cd_name
@@ -63,10 +62,9 @@ select
 distinct
 module_source
 ,energy_type
-,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_死值')as standard_name
-,coalesce(ss_threshold::float,0) as sz_threshold
-,ss_windows::float as sz_windows
-,ss_windows::float/2 as sliding_step
+,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_跳变')as standard_name
+,tb_windows::float as tb_windows
+,tb_windows::float/2 as sliding_step
 ,'0:00' as begin_time
 ,'23:59' as end_time
 ,measure_name
@@ -74,5 +72,5 @@ module_source
 from  
 	final_data
 where 
-	ss_windows !=''
+	tb_windows !=''
 order by measure_name;

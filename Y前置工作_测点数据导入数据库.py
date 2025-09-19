@@ -19,17 +19,17 @@ def create_db_connection():
         return None
 
 def read_excel_data(excel_path):
-    """读取Excel中的编号和名称"""
+    """读取Excel中的测点编码和测点描述列"""
     try:
         # 读取Excel文件，只选择需要的两列
         df = pd.read_excel(
             excel_path,
-            usecols=["编号", "名称"],  # 只读取这两列
+            usecols=["测点编码", "测点描述"],  # 只读取这两列
             dtype=str  # 避免数字型编码被自动转换
         )
         
         # 去除空行
-        df = df.dropna(subset=["编号"]).reset_index(drop=True)
+        df = df.dropna(subset=["测点编码"]).reset_index(drop=True)
         print(f"成功读取Excel数据，共 {len(df)} 条记录")
         return df
     except Exception as e:
@@ -53,7 +53,7 @@ def import_to_database(connection, df, table_name, schema_name=None):
         
         # 准备插入语句
         insert_query = sql.SQL("""
-            INSERT INTO {} (station_code, station_name)
+            INSERT INTO {} (cd_name, cd_code)
             VALUES (%s, %s)
         """).format(full_table_name)
         
@@ -75,9 +75,9 @@ def import_to_database(connection, df, table_name, schema_name=None):
 
 if __name__ == "__main__":
     # 配置参数
-    excel_file_path = "/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/04 广东/05 广东原始数据/广东组织机构编码.xlsx"  # 替换为你的Excel文件路径
-    target_table = "dim_station"                # 替换为数据库中的目标表名
-    target_schema = "广东区域"                       # 如需要指定模式，替换为模式名，否则为None
+    excel_file_path = "/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/08 黔源/05 黔源原始数据/黔源时序测点.xlsx"  # 替换为你的Excel文件路径
+    target_table = "measure_data"                # 替换为数据库中的目标表名
+    target_schema = "黔源区域"                       # 如需要指定模式，替换为模式名，否则为None
     
     # 执行流程
     db_conn = create_db_connection()

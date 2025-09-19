@@ -1,11 +1,11 @@
---分级诊断_风电_越限
-insert into import_list_yx
+--功率预测_光伏_跳变
+insert into import_list_tb
 (
 	module_source 
 	,energy_type
 	,standard_name
-	,upper_range
-	,lower_range
+	,tb_windows
+	,sliding_step
 	,begin_time
 	,end_time
 	,measure_name
@@ -22,16 +22,16 @@ with cd_data as (
 	from 
 		measure_data 
 	where 
-		substring(cd_code,5,1)='F'
-	and substring(cd_code,13,3)='002'
+		(substring(cd_code,5,1)='G' OR substring(cd_code,5,3)='Y02')
+	and substring(cd_code,13,3) in ('001','002','004')
 ),standard_data as (
 	select 
 	*
 	from 
 	通用.standard_list
 	where 
-		module_source = '分级诊断'
-	and energy_type = '风电'
+		module_source = '功率预测'
+	and energy_type = '光伏'
 ),final_data as (
 	select 
 		t1.cd_name
@@ -62,9 +62,9 @@ select
 distinct
 module_source
 ,energy_type
-,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_越限')as standard_name
-,split_part(replace(replace(yx_range,'[',''),']',''),',',2)::float as upper_range
-,split_part(replace(replace(yx_range,'[',''),']',''),',',1)::float as  lower_range
+,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_跳变')as standard_name
+,tb_windows::float as tb_windows
+,tb_windows::float/2 as sliding_step
 ,'0:00' as begin_time
 ,'23:59' as end_time
 ,measure_name
@@ -72,5 +72,5 @@ module_source
 from  
 	final_data
 where 
-	yx_range like '[%,%]'
+	tb_windows !=''
 order by measure_name;

@@ -1,10 +1,11 @@
---分级诊断_光伏_中断
-insert into import_list_zd
+--分级诊断_光伏_跳变
+insert into import_list_tb
 (
 	module_source 
 	,energy_type
 	,standard_name
-	,zd_duration
+	,tb_windows
+	,sliding_step
 	,begin_time
 	,end_time
 	,measure_name
@@ -21,7 +22,7 @@ with cd_data as (
 		from 
 			measure_data 
 		where 
-			substring(cd_code,5,1)='G' -- 光伏
+			(substring(cd_code,5,1)='G' OR substring(cd_code,5,3)='Y02') -- 光伏
 		and substring(cd_code,13,3)='002' -- 光伏发电系统
 		and substring(cd_code,20,3) in ('003','005') -- 组串式逆变器和直流汇流箱
 	union all 
@@ -75,8 +76,9 @@ select
 distinct
 module_source
 ,energy_type
-,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_中断')as standard_name
-,zd_duration::float as  zd_duration
+,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_跳变')as standard_name
+,tb_windows::float as tb_windows
+,tb_windows::float/2 as sliding_step
 ,'0:00' as begin_time
 ,'23:59' as end_time
 ,measure_name
@@ -84,5 +86,5 @@ module_source
 from  
 	final_data
 where 
-	zd_duration != ''
+	tb_windows !=''
 order by measure_name;

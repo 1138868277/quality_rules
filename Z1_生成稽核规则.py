@@ -2,6 +2,7 @@ import psycopg2
 from psycopg2 import OperationalError
 from config import AREA
 from config import AREA_FILE
+import os 
 
 def create_connection(schema_name):  # 新增参数：模式名
     """创建数据库连接并指定默认模式"""
@@ -48,25 +49,26 @@ if __name__ == "__main__":
     db_connection = create_connection(target_schema)
 
     if db_connection:
+        sql_folder = "sql_scripts"
         # 要执行的脚本列表
         sql_scripts = [
-            "清空表数据.sql",
-            "分级诊断_风电_死值.sql",
-            "分级诊断_风电_跳变.sql",
-            "分级诊断_风电_越限.sql",
-            "分级诊断_风电_中断.sql",
-            "分级诊断_光伏_死值.sql",
-            "分级诊断_光伏_跳变.sql",
-            "分级诊断_光伏_越限.sql",
-            "分级诊断_光伏_中断.sql",
-            "功率预测_风电_死值.sql",
-            "功率预测_风电_跳变.sql",
-            "功率预测_风电_越限.sql",
-            "功率预测_风电_中断.sql",
-            "功率预测_光伏_死值.sql",
-            "功率预测_光伏_跳变.sql",
-            "功率预测_光伏_越限.sql",
-            "功率预测_光伏_中断.sql"
+            os.path.join(sql_folder, "清空表数据.sql"),
+            os.path.join(sql_folder, "分级诊断_风电_死值.sql"),
+            os.path.join(sql_folder, "分级诊断_风电_跳变.sql"),
+            os.path.join(sql_folder, "分级诊断_风电_越限.sql"),
+            os.path.join(sql_folder, "分级诊断_风电_中断.sql"),
+            os.path.join(sql_folder, "分级诊断_光伏_死值.sql"),
+            os.path.join(sql_folder, "分级诊断_光伏_跳变.sql"),
+            os.path.join(sql_folder, "分级诊断_光伏_越限.sql"),
+            os.path.join(sql_folder, "分级诊断_光伏_中断.sql"),
+            os.path.join(sql_folder, "功率预测_风电_死值.sql"),
+            os.path.join(sql_folder, "功率预测_风电_跳变.sql"),
+            os.path.join(sql_folder, "功率预测_风电_越限.sql"),
+            os.path.join(sql_folder, "功率预测_风电_中断.sql"),
+            os.path.join(sql_folder, "功率预测_光伏_死值.sql"),
+            os.path.join(sql_folder, "功率预测_光伏_跳变.sql"),
+            os.path.join(sql_folder, "功率预测_光伏_越限.sql"),
+            os.path.join(sql_folder, "功率预测_光伏_中断.sql")
         ]
         
         # 依次执行所有脚本

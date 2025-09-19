@@ -1,4 +1,4 @@
---功率预测_风电_中断
+--功率预测_光伏_中断
 insert into import_list_zd
 (
 	module_source 
@@ -21,7 +21,7 @@ with cd_data as (
 	from 
 		measure_data 
 	where 
-		substring(cd_code,5,1)='F'
+		(substring(cd_code,5,1)='G' OR substring(cd_code,5,3)='Y02')
 	and substring(cd_code,13,3) in ('001','002','004')
 ),standard_data as (
 	select 
@@ -30,7 +30,7 @@ with cd_data as (
 	通用.standard_list
 	where 
 		module_source = '功率预测'
-	and energy_type = '风电'
+	and energy_type = '光伏'
 ),final_data as (
 	select 
 		t1.cd_name

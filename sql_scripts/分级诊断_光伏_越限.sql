@@ -1,12 +1,11 @@
---分级诊断_光伏_死值
-insert into import_list_sz
+--分级诊断_光伏_越限
+insert into import_list_yx
 (
 	module_source 
 	,energy_type
 	,standard_name
-	,sz_threshold
-	,sz_windows
-	,sliding_step
+	,upper_range
+	,lower_range
 	,begin_time
 	,end_time
 	,measure_name
@@ -23,7 +22,7 @@ with cd_data as (
 		from 
 			measure_data 
 		where 
-			substring(cd_code,5,1)='G' -- 光伏
+			(substring(cd_code,5,1)='G' OR substring(cd_code,5,3)='Y02') -- 光伏
 		and substring(cd_code,13,3)='002' -- 光伏发电系统
 		and substring(cd_code,20,3) in ('003','005') -- 组串式逆变器和直流汇流箱
 	union all 
@@ -77,10 +76,9 @@ select
 distinct
 module_source
 ,energy_type
-,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_死值')as standard_name
-,coalesce(ss_threshold::float,0) as sz_threshold
-,ss_windows::float as sz_windows
-,ss_windows::float/2 as sliding_step
+,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_越限')as standard_name
+,split_part(replace(replace(yx_range,'[',''),']',''),',',2)::float as upper_range
+,split_part(replace(replace(yx_range,'[',''),']',''),',',1)::float as  lower_range
 ,'0:00' as begin_time
 ,'23:59' as end_time
 ,measure_name
@@ -88,5 +86,5 @@ module_source
 from  
 	final_data
 where 
-	ss_windows !=''
+	yx_range like '[%,%]'
 order by measure_name;

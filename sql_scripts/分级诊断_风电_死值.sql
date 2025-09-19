@@ -23,7 +23,7 @@ with cd_data as (
 	from 
 		measure_data 
 	where 
-		substring(cd_code,5,1)='F'
+		(substring(cd_code,5,1)='F' OR substring(cd_code,5,3)='Y01')
 	and substring(cd_code,13,3)='002'
 ),standard_data as (
 	select 
