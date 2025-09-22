@@ -63,8 +63,8 @@ module_source
 ,energy_type
 ,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_中断')as standard_name
 ,zd_duration::float as  zd_duration
-,'0:00' as begin_time
-,'23:59' as end_time
+,'8:00' as begin_time
+,'18:00' as end_time
 ,measure_name
 ,cd_code
 from  

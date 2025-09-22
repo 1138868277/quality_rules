@@ -67,8 +67,8 @@ module_source
 ,coalesce(ss_threshold::float,0) as sz_threshold
 ,ss_windows::float as sz_windows
 ,ss_windows::float/2 as sliding_step
-,'0:00' as begin_time
-,'23:59' as end_time
+,'8:00' as begin_time
+,'18:00' as end_time
 ,measure_name
 ,cd_code
 from  

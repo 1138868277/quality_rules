@@ -79,8 +79,8 @@ module_source
 ,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_跳变')as standard_name
 ,tb_windows::float as tb_windows
 ,tb_windows::float/2 as sliding_step
-,'0:00' as begin_time
-,'23:59' as end_time
+,'8:00' as begin_time
+,'18:00' as end_time
 ,measure_name
 ,cd_code
 from  

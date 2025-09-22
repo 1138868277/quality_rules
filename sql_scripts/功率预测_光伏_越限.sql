@@ -65,8 +65,8 @@ module_source
 ,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_越限')as standard_name
 ,split_part(replace(replace(yx_range,'[',''),']',''),',',2)::float as upper_range
 ,split_part(replace(replace(yx_range,'[',''),']',''),',',1)::float as  lower_range
-,'0:00' as begin_time
-,'23:59' as end_time
+,'8:00' as begin_time
+,'18:00' as end_time
 ,measure_name
 ,cd_code
 from  
