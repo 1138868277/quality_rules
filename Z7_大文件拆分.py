@@ -2,6 +2,8 @@ import os
 import pandas as pd
 from openpyxl import load_workbook
 from pandas import ExcelWriter
+from config import AREA, AREA_FILE
+
 
 def split_large_excel(
     source_path, 
@@ -136,15 +138,15 @@ def split_large_excel(
 
 if __name__ == "__main__":
     # 实际路径配置
-    source_file_path = "/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/09 山东/00 总体/山东区域_时序稽核质量规则_死值.xlsx"
-    destination_directory = "/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/09 山东/01 死值"
+    source_file_path = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/00 总体/{AREA}区域_时序稽核质量规则_中断.xlsx'
+    destination_directory = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/04 中断'
     
     # 调用示例：指定B-F列（2-6）与A列同步合并
     split_large_excel(
         source_path=source_file_path,
         dest_dir=destination_directory,
         max_rows=150000,
-        sheet_name="死值",  # 建议与文件内容匹配
-        sync_columns=[2,3,4,5,6,7]  # B-F列（2=B,6=F）
+        sheet_name="中断",  # 建议与文件内容匹配
+        sync_columns=[2,3,4,5]  # B-F列（2=B,6=F）
     )
     

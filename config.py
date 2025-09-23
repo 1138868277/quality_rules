@@ -17,8 +17,8 @@ AREA_FILE4="02 福建"
 AREA5 = "重庆"
 AREA_FILE5="05 重庆"
 
-AREA6 = "四川"
-AREA_FILE6="06 四川"
+AREA = "四川"
+AREA_FILE="06 四川"
 
 AREA7 = "宁夏"
 AREA_FILE7="07 宁夏"
@@ -26,5 +26,5 @@ AREA_FILE7="07 宁夏"
 AREA8 = "黔源"
 AREA_FILE8="08 黔源"
 
-AREA = "山东"
-AREA_FILE="09 山东"
+AREA9 = "山东"
+AREA_FILE9="09 山东"
