@@ -8,8 +8,8 @@ AREA_FILE1="04 广东"
 AREA2 = "云南"
 AREA_FILE2="01 云南"
 
-AREA3 = "甘肃"
-AREA_FILE3="03 甘肃"
+AREA = "甘肃"
+AREA_FILE="03 甘肃"
 
 AREA4 = "福建"
 AREA_FILE4="02 福建"
@@ -17,8 +17,8 @@ AREA_FILE4="02 福建"
 AREA5 = "重庆"
 AREA_FILE5="05 重庆"
 
-AREA = "四川"
-AREA_FILE="06 四川"
+AREA6 = "四川"
+AREA_FILE6="06 四川"
 
 AREA7 = "宁夏"
 AREA_FILE7="07 宁夏"

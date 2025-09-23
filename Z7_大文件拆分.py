@@ -137,14 +137,45 @@ def split_large_excel(
     print(f"\n拆分完成！共生成 {len(split_points)} 个文件，指定列已与A列同步合并。")
 
 if __name__ == "__main__":
+
+    print("正在执行死值！！！！！")
     # 实际路径配置
-    source_file_path = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/00 总体/{AREA}区域_时序稽核质量规则_中断.xlsx'
-    destination_directory = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/04 中断'
+    source_file_path = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/00 总体/{AREA}区域_时序稽核质量规则_死值.xlsx'
+    destination_directory = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/01 死值'
     
     # 调用示例：指定B-F列（2-6）与A列同步合并
     split_large_excel(
         source_path=source_file_path,
         dest_dir=destination_directory,
+        max_rows=150000,
+        sheet_name="死值",  # 建议与文件内容匹配
+        sync_columns=[2,3,4,5,6,7]  # B-F列（2=B,6=F）
+    )
+
+    print("正在执行跳变！！！！！")
+    # 实际路径配置
+    source_file_path1 = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/00 总体/{AREA}区域_时序稽核质量规则_跳变.xlsx'
+    destination_directory1 = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/02 跳变'
+    
+    # 调用示例：指定B-F列（2-6）与A列同步合并
+    split_large_excel(
+        source_path=source_file_path1,
+        dest_dir=destination_directory1,
+        max_rows=150000,
+        sheet_name="跳变",  # 建议与文件内容匹配
+        sync_columns=[2,3,4,5,6]  # B-F列（2=B,6=F）
+    )
+
+
+    print("正在执行中断！！！！！")
+    # 实际路径配置
+    source_file_path2 = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/00 总体/{AREA}区域_时序稽核质量规则_中断.xlsx'
+    destination_directory2 = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/04 中断'
+    
+    # 调用示例：指定B-F列（2-6）与A列同步合并
+    split_large_excel(
+        source_path=source_file_path2,
+        dest_dir=destination_directory2,
         max_rows=150000,
         sheet_name="中断",  # 建议与文件内容匹配
         sync_columns=[2,3,4,5]  # B-F列（2=B,6=F）
