@@ -37,7 +37,7 @@ with cd_data as (
 		from 
 			measure_data 
 		where 
-			substring(cd_code,5,1)='G' -- 光伏
+			(substring(cd_code,5,1)='G' OR substring(cd_code,5,3)='Y02') -- 光伏
 		and substring(cd_code,13,3)='004' -- 光功率预测系统
 ),standard_data as (
 	select 

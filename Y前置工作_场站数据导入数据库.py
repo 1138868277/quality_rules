@@ -75,9 +75,9 @@ def import_to_database(connection, df, table_name, schema_name=None):
 
 if __name__ == "__main__":
     # 配置参数
-    excel_file_path = "/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/08 黔源/05 黔源原始数据/黔源组织机构编码.xlsx"  # 替换为你的Excel文件路径
+    excel_file_path = "/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/09 山东/05 原始数据/山东组织机构编码.xlsx"  # 替换为你的Excel文件路径
     target_table = "dim_station"                # 替换为数据库中的目标表名
-    target_schema = "黔源区域"                       # 如需要指定模式，替换为模式名，否则为None
+    target_schema = "山东区域"                       # 如需要指定模式，替换为模式名，否则为None
     
     # 执行流程
     db_conn = create_db_connection()
