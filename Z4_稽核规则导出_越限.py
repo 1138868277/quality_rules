@@ -3,7 +3,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment
 import psycopg2
 from config import AREA, AREA_FILE
-from common_utils import merge_columns_hierarchical
+from tools.common_utils import merge_columns_hierarchical
 
 
 def fetch_data_from_db():
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     if data_df is not None:
         merge_columns_hierarchical(
             df=data_df,
-            output_file=f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/00 总体/{AREA}区域_时序稽核质量规则_越限.xlsx',
+            output_file=f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/04 时序数据治理/01 测点数据标准/{AREA_FILE}/00 总体/{AREA}区域_时序稽核质量规则_越限.xlsx',
             columns_to_merge=columns_to_merge,
             custom_headers=custom_headers  # 传递自定义表头
         )

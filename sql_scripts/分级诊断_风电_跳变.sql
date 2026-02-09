@@ -64,7 +64,7 @@ module_source
 ,energy_type
 ,concat(station_name,'_',module_source,'_',second_name,'_',measure_name,'_跳变')as standard_name
 ,tb_windows::float as tb_windows
-,tb_windows::float/2 as sliding_step
+,tb_windows::float as sliding_step
 ,'0:00' as begin_time
 ,'23:59' as end_time
 ,measure_name

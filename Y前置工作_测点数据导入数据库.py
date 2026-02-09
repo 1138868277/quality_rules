@@ -1,7 +1,7 @@
 import pandas as pd
 import psycopg2
 from psycopg2 import OperationalError, sql
-from config import AREA, AREA_FILE
+from config import AREA, AREA_FILE, BASE_DIR
 
 
 def create_db_connection():
@@ -77,7 +77,7 @@ def import_to_database(connection, df, table_name, schema_name=None):
 
 if __name__ == "__main__":
     # 配置参数
-    excel_file_path = f'/Users/liuhaojun/Documents/项目文档/中国华电项目(云南)/03 时序数据质量稽核规则/{AREA_FILE}/05 原始数据/{AREA}时序测点03.xlsx'  # 替换为你的Excel文件路径
+    excel_file_path = f'{BASE_DIR}{AREA_FILE}/05 原始数据/{AREA}时序测点.xlsx'  # 替换为你的Excel文件路径
     target_table = "measure_data"                # 替换为数据库中的目标表名
     target_schema = f'{AREA}区域'                        # 如需要指定模式，替换为模式名，否则为None
     
